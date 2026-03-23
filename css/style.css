@@ -629,6 +629,20 @@ section {
   color: var(--text-secondary);
 }
 
+.footer-colophon {
+  width: 100%;
+  text-align: center;
+  font-size: 0.65rem;
+  color: #2a2a3a;
+  margin-top: 0.5rem;
+  cursor: default;
+  transition: color 0.3s;
+}
+
+.footer-colophon:hover {
+  color: var(--text-muted);
+}
+
 /* ===== Animations ===== */
 .fade-in {
   opacity: 0;
