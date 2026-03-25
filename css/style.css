@@ -393,6 +393,54 @@ section {
   font-size: 0.95rem;
 }
 
+/* ===== Community Cards ===== */
+.community-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+}
+
+.community-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.3s;
+  text-decoration: none;
+  display: block;
+}
+
+.community-card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--accent-green);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(68, 255, 102, 0.1);
+}
+
+.community-card h3 {
+  color: var(--accent-green);
+  font-size: 1.1rem;
+  margin-bottom: 0.4rem;
+}
+
+.community-card:hover h3 {
+  color: #66ff88;
+}
+
+.community-card p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 0;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .community-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ===== Support Page ===== */
 .faq-list {
   max-width: 800px;
