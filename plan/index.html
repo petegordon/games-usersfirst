@@ -121,12 +121,20 @@
     .pulse-dot, .pulse-plus, .glow-body { animation: none; }
     .roadmap-header { cursor: default; }
 
+    .roadmap-header-text {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+    }
+
     .roadmap-header-text h1 {
       font-size: 1.6rem;
       font-weight: 700;
       letter-spacing: -0.02em;
       line-height: 1.15;
-      margin-bottom: 0.15rem;
+      margin-bottom: 0;
+      white-space: nowrap;
     }
 
     .roadmap-header-text h1 .accent-green { color: var(--accent-green); }
@@ -477,7 +485,7 @@
 
       <section>
         <div class="roadmap-header fade-in">
-          <svg class="roadmap-logo" viewBox="-30 -4 108 60" xmlns="http://www.w3.org/2000/svg">
+          <svg class="roadmap-logo" viewBox="-30 -4 220 60" xmlns="http://www.w3.org/2000/svg">
             <!-- Left-side 220° arcs (purple) -->
             <path class="wave-spin-l" d="M31.52,47.68 A22,22 0 1,1 31.52,6.32" fill="none" stroke="#a6f" stroke-width="2.5" stroke-dasharray="3 4" stroke-linecap="round" opacity="0.5"/>
             <path class="wave-spin-l mid" d="M33.58,53.32 A28,28 0 1,1 33.58,0.68" fill="none" stroke="#a6f" stroke-width="2" stroke-dasharray="3 4" stroke-linecap="round" opacity="0.35"/>
@@ -499,10 +507,13 @@
               </g>
               <rect x="15" y="9" width="10" height="6" rx="2.5" fill="#3adb58"/>
             </g>
+
+            <!-- Text -->
+            <text x="72" y="22" font-family="'Inter', -apple-system, sans-serif" font-weight="700" font-size="15" fill="#f0f0f5" letter-spacing="0.5">USERS FIRST</text>
+            <text x="72" y="40" font-family="'Inter', -apple-system, sans-serif" font-weight="500" font-size="13" fill="#666680" letter-spacing="1">GAMES</text>
           </svg>
           <div class="roadmap-header-text">
-            <h1><span class="accent-green">Tandemonium</span> <span class="accent-blue">Release Plan</span></h1>
-            <p class="subtitle">2026 Roadmap</p>
+            <h1><span class="accent-green">Tandemonium</span><br><span class="accent-blue">Release Plan</span></h1>
           </div>
           <div class="roadmap-badge">
             <span class="dot"></span>
