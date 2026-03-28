@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Logo — Users First Games</title>
+<style>
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: #0a0a0f;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 80px;
+    font-family: 'Inter', -apple-system, sans-serif;
+  }
+
+  .logo-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #666680;
+    margin-bottom: 12px;
+  }
+
+  .logo-wrap {
+    text-align: center;
+  }
+
+  /* ===== Static Logo ===== */
+  .logo-static svg {
+    height: 80px;
+    width: auto;
+  }
+
+  /* ===== Animated Logo ===== */
+  .logo-animated svg {
+    height: 80px;
+    width: auto;
+  }
+
+  /* Wave rings emanating from controller */
+  @keyframes wave-expand {
+    0% {
+      r: 18;
+      opacity: 0.5;
+      stroke-width: 2;
+    }
+    100% {
+      r: 50;
+      opacity: 0;
+      stroke-width: 0.5;
+    }
+  }
+
+  .wave-ring {
+    fill: none;
+    stroke: #44ff66;
+    animation: wave-expand 2.4s ease-out infinite;
+  }
+
+  .wave-ring:nth-child(2) {
+    animation-delay: 0.8s;
+  }
+
+  .wave-ring:nth-child(3) {
+    animation-delay: 1.6s;
+  }
+
+  /* Subtle glow pulse on the controller */
+  @keyframes glow-pulse {
+    0%, 100% { filter: drop-shadow(0 0 4px rgba(68, 255, 102, 0.3)); }
+    50% { filter: drop-shadow(0 0 12px rgba(68, 255, 102, 0.6)); }
+  }
+
+  .controller-group {
+    animation: glow-pulse 2.4s ease-in-out infinite;
+  }
+
+  /* Button shimmer */
+  @keyframes btn-pop {
+    0%, 100% { r: 3; }
+    50% { r: 3.5; }
+  }
+
+  .btn-anim {
+    animation: btn-pop 1.2s ease-in-out infinite;
+  }
+
+  .btn-anim:nth-child(2) {
+    animation-delay: 0.3s;
+  }
+
+  /* ===== Horizontal Waves Logo ===== */
+  .logo-horizontal svg {
+    height: 80px;
+    width: auto;
+  }
+
+  .h-wave {
+    fill: none;
+    stroke: #44ff66;
+    stroke-width: 1.8;
+    opacity: 0;
+  }
+
+  /* Left-side arcs expand leftward */
+  @keyframes wave-left {
+    0% {
+      transform: translateX(0) scaleX(1);
+      opacity: 0.6;
+      stroke-width: 1.8;
+    }
+    100% {
+      transform: translateX(-28px) scaleX(2.5);
+      opacity: 0;
+      stroke-width: 0.4;
+    }
+  }
+
+  /* Right-side arcs expand rightward */
+  @keyframes wave-right {
+    0% {
+      transform: translateX(0) scaleX(1);
+      opacity: 0.6;
+      stroke-width: 1.8;
+    }
+    100% {
+      transform: translateX(28px) scaleX(2.5);
+      opacity: 0;
+      stroke-width: 0.4;
+    }
+  }
+
+  .h-wave-l {
+    animation: wave-left 2.4s ease-out infinite;
+  }
+
+  .h-wave-l:nth-child(2) { animation-delay: 0.8s; }
+  .h-wave-l:nth-child(3) { animation-delay: 1.6s; }
+
+  .h-wave-r {
+    animation: wave-right 2.4s ease-out infinite;
+  }
+
+  .h-wave-r:nth-child(2) { animation-delay: 0.8s; }
+  .h-wave-r:nth-child(3) { animation-delay: 1.6s; }
+</style>
+</head>
+<body>
+
+  <!-- Static Logo -->
+  <div class="logo-wrap logo-static">
+    <div class="logo-label">Static</div>
+    <svg viewBox="0 0 220 52" xmlns="http://www.w3.org/2000/svg">
+      <g transform="translate(4,6)">
+        <rect x="2" y="10" width="36" height="22" rx="11" fill="none" stroke="#44ff66" stroke-width="2.2"/>
+        <circle cx="13" cy="21" r="3" fill="#44ff66"/>
+        <rect x="25.75" y="17" width="2.5" height="8" rx="0.5" fill="#4af"/>
+        <rect x="23" y="19.75" width="8" height="2.5" rx="0.5" fill="#4af"/>
+        <rect x="15" y="9" width="10" height="6" rx="1.5" fill="#a6f"/>
+      </g>
+      <text x="48" y="22" font-family="'Inter', -apple-system, sans-serif" font-weight="700" font-size="15" fill="#f0f0f5" letter-spacing="0.5">USERS FIRST</text>
+      <text x="48" y="40" font-family="'Inter', -apple-system, sans-serif" font-weight="500" font-size="13" fill="#666680" letter-spacing="1">GAMES</text>
+    </svg>
+  </div>
+
+  <!-- Animated Logo with Motion Waves (radial) -->
+  <div class="logo-wrap logo-animated">
+    <div class="logo-label">Animated — Radial Waves</div>
+    <svg viewBox="-30 -20 280 92" xmlns="http://www.w3.org/2000/svg">
+      <!-- Wave rings centered on controller -->
+      <circle class="wave-ring" cx="24" cy="27" r="18"/>
+      <circle class="wave-ring" cx="24" cy="27" r="18"/>
+      <circle class="wave-ring" cx="24" cy="27" r="18"/>
+
+      <!-- Controller -->
+      <g class="controller-group" transform="translate(4,6)">
+        <rect x="2" y="10" width="36" height="22" rx="11" fill="none" stroke="#44ff66" stroke-width="2.2"/>
+        <circle class="btn-anim" cx="13" cy="21" r="3" fill="#44ff66"/>
+        <circle class="btn-anim" cx="27" cy="21" r="3" fill="#4af"/>
+        <rect x="15" y="9" width="10" height="6" rx="1.5" fill="#a6f"/>
+      </g>
+
+      <!-- Text -->
+      <text x="48" y="22" font-family="'Inter', -apple-system, sans-serif" font-weight="700" font-size="15" fill="#f0f0f5" letter-spacing="0.5">USERS FIRST</text>
+      <text x="48" y="40" font-family="'Inter', -apple-system, sans-serif" font-weight="500" font-size="13" fill="#666680" letter-spacing="1">GAMES</text>
+    </svg>
+  </div>
+
+  <!-- Static Logo with Horizontal Half-Circle Waves -->
+  <div class="logo-wrap logo-horizontal">
+    <div class="logo-label">Static — Horizontal Waves</div>
+    <svg viewBox="-30 -4 280 60" xmlns="http://www.w3.org/2000/svg">
+      <!-- Left-side 220° arcs (purple, center=24,27, gap faces right) -->
+      <path d="M31.52,47.68 A22,22 0 1,1 31.52,6.32" fill="none" stroke="#a6f" stroke-width="2.5" stroke-dasharray="3 4" stroke-linecap="round" opacity="0.5"/>
+      <path d="M33.58,53.32 A28,28 0 1,1 33.58,0.68" fill="none" stroke="#a6f" stroke-width="2" stroke-dasharray="3 4" stroke-linecap="round" opacity="0.35"/>
+      <path d="M35.63,58.96 A34,34 0 1,1 35.63,-4.96" fill="none" stroke="#a6f" stroke-width="1.5" stroke-dasharray="3 4" stroke-linecap="round" opacity="0.2"/>
+
+      <!-- Right-side 220° arcs (blue, center=24,27, gap faces left) -->
+      <path d="M16.48,6.32 A22,22 0 1,1 16.48,47.68" fill="none" stroke="#4af" stroke-width="2.5" stroke-dasharray="3 4" stroke-linecap="round" opacity="0.5"/>
+      <path d="M14.42,0.68 A28,28 0 1,1 14.42,53.32" fill="none" stroke="#4af" stroke-width="2" stroke-dasharray="3 4" stroke-linecap="round" opacity="0.35"/>
+      <path d="M12.37,-4.96 A34,34 0 1,1 12.37,58.96" fill="none" stroke="#4af" stroke-width="1.5" stroke-dasharray="3 4" stroke-linecap="round" opacity="0.2"/>
+
+      <!-- Controller (drawn on top) -->
+      <g transform="translate(4,6)">
+        <!-- Subtle fill gives the controller body presence -->
+        <rect x="2" y="10" width="36" height="22" rx="11" fill="#0d0d14"/>
+        <rect x="2" y="10" width="36" height="22" rx="11" fill="none" stroke="#44ff66" stroke-width="2.2"/>
+        <circle cx="13" cy="21" r="3.5" fill="#a6f"/>
+        <rect x="25.75" y="17" width="2.5" height="8" rx="1.25" fill="#4af"/>
+        <rect x="23" y="19.75" width="8" height="2.5" rx="1.25" fill="#4af"/>
+        <rect x="15" y="9" width="10" height="6" rx="2.5" fill="#3adb58"/>
+      </g>
+
+      <!-- Text -->
+      <text x="72" y="22" font-family="'Inter', -apple-system, sans-serif" font-weight="700" font-size="15" fill="#f0f0f5" letter-spacing="0.5">USERS FIRST</text>
+      <text x="72" y="40" font-family="'Inter', -apple-system, sans-serif" font-weight="500" font-size="13" fill="#666680" letter-spacing="1">GAMES</text>
+    </svg>
+  </div>
+
+  <!-- Animated Logo with Waves -->
+  <div class="logo-wrap logo-horizontal">
+    <div class="logo-label">Animated — Waves</div>
+    <svg viewBox="-30 -4 280 60" xmlns="http://www.w3.org/2000/svg">
+      <style>
+        .wave-spin-l { animation: spin-left 12s linear infinite; transform-origin: 24px 27px; }
+        .wave-spin-r { animation: spin-right 12s linear infinite; transform-origin: 24px 27px; }
+        .wave-spin-l.mid { animation-duration: 16s; }
+        .wave-spin-r.mid { animation-duration: 16s; }
+        .wave-spin-l.outer { animation-duration: 22s; }
+        .wave-spin-r.outer { animation-duration: 22s; }
+        @keyframes spin-left { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
+        @keyframes spin-right { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .pulse-dot { animation: dot-pulse 2s ease-in-out infinite; }
+        .pulse-plus { animation: plus-pulse 2s ease-in-out infinite 0.3s; }
+        @keyframes dot-pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.6; } }
+        @keyframes plus-pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.6; } }
+        .glow-body { animation: body-glow 3s ease-in-out infinite; }
+        @keyframes body-glow {
+          0%,100% { filter: drop-shadow(0 0 3px rgba(68,255,102,0.2)); }
+          50% { filter: drop-shadow(0 0 8px rgba(68,255,102,0.5)); }
+        }
+      </style>
+
+      <!-- Left-side 220° arcs (purple, animated rotation) -->
+      <path class="wave-spin-l" d="M31.52,47.68 A22,22 0 1,1 31.52,6.32" fill="none" stroke="#a6f" stroke-width="2.5" stroke-dasharray="3 4" stroke-linecap="round" opacity="0.5"/>
+      <path class="wave-spin-l mid" d="M33.58,53.32 A28,28 0 1,1 33.58,0.68" fill="none" stroke="#a6f" stroke-width="2" stroke-dasharray="3 4" stroke-linecap="round" opacity="0.35"/>
+      <path class="wave-spin-l outer" d="M35.63,58.96 A34,34 0 1,1 35.63,-4.96" fill="none" stroke="#a6f" stroke-width="1.5" stroke-dasharray="3 4" stroke-linecap="round" opacity="0.2"/>
+
+      <!-- Right-side 220° arcs (blue, animated rotation) -->
+      <path class="wave-spin-r" d="M16.48,6.32 A22,22 0 1,1 16.48,47.68" fill="none" stroke="#4af" stroke-width="2.5" stroke-dasharray="3 4" stroke-linecap="round" opacity="0.5"/>
+      <path class="wave-spin-r mid" d="M14.42,0.68 A28,28 0 1,1 14.42,53.32" fill="none" stroke="#4af" stroke-width="2" stroke-dasharray="3 4" stroke-linecap="round" opacity="0.35"/>
+      <path class="wave-spin-r outer" d="M12.37,-4.96 A34,34 0 1,1 12.37,58.96" fill="none" stroke="#4af" stroke-width="1.5" stroke-dasharray="3 4" stroke-linecap="round" opacity="0.2"/>
+
+      <!-- Controller (drawn on top) -->
+      <g class="glow-body" transform="translate(4,6)">
+        <rect x="2" y="10" width="36" height="22" rx="11" fill="#0d0d14"/>
+        <rect x="2" y="10" width="36" height="22" rx="11" fill="none" stroke="#44ff66" stroke-width="2.2"/>
+        <circle class="pulse-dot" cx="13" cy="21" r="3.5" fill="#a6f"/>
+        <g class="pulse-plus">
+          <rect x="25.75" y="17" width="2.5" height="8" rx="1.25" fill="#4af"/>
+          <rect x="23" y="19.75" width="8" height="2.5" rx="1.25" fill="#4af"/>
+        </g>
+        <rect x="15" y="9" width="10" height="6" rx="2.5" fill="#3adb58"/>
+      </g>
+
+      <!-- Text -->
+      <text x="72" y="22" font-family="'Inter', -apple-system, sans-serif" font-weight="700" font-size="15" fill="#f0f0f5" letter-spacing="0.5">USERS FIRST</text>
+      <text x="72" y="40" font-family="'Inter', -apple-system, sans-serif" font-weight="500" font-size="13" fill="#666680" letter-spacing="1">GAMES</text>
+    </svg>
+  </div>
+
+</body>
+</html>

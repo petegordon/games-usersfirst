@@ -8,63 +8,165 @@
   <link rel="icon" type="image/png" href="../images/logos/usersfirst-logo_50x50.png">
   <link rel="stylesheet" href="../css/style.css">
   <style>
-    /* ===== Roadmap Page Styles ===== */
+    /* ===== Override page-content padding for this dense layout ===== */
+    .page-content {
+      padding-top: calc(var(--nav-height) + 1.5rem);
+    }
+
+    .page-content > .container > section {
+      padding: 0;
+    }
+
+    /* ===== Compact Header — fixed on desktop ===== */
     .roadmap-header {
-      text-align: center;
-      margin-bottom: 3.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      padding-bottom: 1rem;
+      padding-top: 1rem;
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: var(--nav-height);
+      background: rgba(10, 10, 15, 0.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      z-index: 100;
+      margin-bottom: 1rem;
     }
 
     .roadmap-logo {
-      display: block;
-      margin: 0 auto 1.5rem;
-      height: 52px;
+      height: 64px;
+      flex-shrink: 0;
+    }
+
+    /* ===== Animations (triggered on hover OR .intro class) ===== */
+    .roadmap-header:hover .wave-spin-l,
+    .roadmap-header.intro .wave-spin-l { animation: spin-left 12s linear infinite; }
+    .roadmap-header:hover .wave-spin-l.mid,
+    .roadmap-header.intro .wave-spin-l.mid { animation: spin-left 16s linear infinite; }
+    .roadmap-header:hover .wave-spin-l.outer,
+    .roadmap-header.intro .wave-spin-l.outer { animation: spin-left 22s linear infinite; }
+    .roadmap-header:hover .wave-spin-r,
+    .roadmap-header.intro .wave-spin-r { animation: spin-right 12s linear infinite; }
+    .roadmap-header:hover .wave-spin-r.mid,
+    .roadmap-header.intro .wave-spin-r.mid { animation: spin-right 16s linear infinite; }
+    .roadmap-header:hover .wave-spin-r.outer,
+    .roadmap-header.intro .wave-spin-r.outer { animation: spin-right 22s linear infinite; }
+    .roadmap-header:hover .pulse-dot,
+    .roadmap-header.intro .pulse-dot { animation: dot-pulse 2s ease-in-out infinite; }
+    .roadmap-header:hover .pulse-plus,
+    .roadmap-header.intro .pulse-plus { animation: plus-pulse 2s ease-in-out infinite 0.3s; }
+    .roadmap-header:hover .glow-body,
+    .roadmap-header.intro .glow-body { animation: body-glow 3s ease-in-out infinite; }
+
+    /* Text animation */
+    .roadmap-header-text h1 .accent-green,
+    .roadmap-header-text h1 .accent-blue {
+      display: inline-block;
+      transition: text-shadow 0.3s ease;
+    }
+    .roadmap-header:hover .roadmap-header-text .accent-green,
+    .roadmap-header.intro .roadmap-header-text .accent-green {
+      animation: text-glow-green 3s ease-in-out infinite;
+    }
+    .roadmap-header:hover .roadmap-header-text .accent-blue,
+    .roadmap-header.intro .roadmap-header-text .accent-blue {
+      animation: text-glow-blue 3s ease-in-out infinite 0.7s;
+    }
+    .roadmap-header:hover .subtitle,
+    .roadmap-header.intro .subtitle {
+      animation: subtitle-fade 3s ease-in-out infinite 1s;
+    }
+
+    /* Badge glow */
+    .roadmap-header:hover .roadmap-badge,
+    .roadmap-header.intro .roadmap-badge {
+      animation: badge-glow 3s ease-in-out infinite;
+    }
+    .roadmap-header:hover .roadmap-badge .dot,
+    .roadmap-header.intro .roadmap-badge .dot {
+      animation: dot-glow 2s ease-in-out infinite;
+    }
+
+    @keyframes spin-left { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
+    @keyframes spin-right { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    @keyframes dot-pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.6; } }
+    @keyframes plus-pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.6; } }
+    @keyframes body-glow {
+      0%,100% { filter: drop-shadow(0 0 3px rgba(68,255,102,0.2)); }
+      50% { filter: drop-shadow(0 0 8px rgba(68,255,102,0.5)); }
+    }
+    @keyframes text-glow-green {
+      0%,100% { text-shadow: 0 0 6px rgba(68,255,102,0.3); color: var(--accent-green); }
+      50% { text-shadow: 0 0 30px rgba(68,255,102,1), 0 0 60px rgba(68,255,102,0.5), 0 0 90px rgba(68,255,102,0.2); color: #bbffcc; }
+    }
+    @keyframes text-glow-blue {
+      0%,100% { text-shadow: 0 0 6px rgba(68,170,255,0.3); color: var(--accent-blue); }
+      50% { text-shadow: 0 0 30px rgba(68,170,255,1), 0 0 60px rgba(68,170,255,0.5), 0 0 90px rgba(68,170,255,0.2); color: #bbddff; }
+    }
+    @keyframes subtitle-fade {
+      0%,100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    @keyframes badge-glow {
+      0%,100% { box-shadow: 0 0 0 transparent; color: var(--text-muted); }
+      50% { box-shadow: 0 0 16px rgba(68,255,102,0.3); color: var(--accent-green); }
+    }
+    @keyframes dot-glow {
+      0%,100% { box-shadow: 0 0 2px rgba(68,255,102,0.3); }
+      50% { box-shadow: 0 0 8px rgba(68,255,102,0.9), 0 0 16px rgba(68,255,102,0.4); }
+    }
+
+    .wave-spin-l, .wave-spin-r { transform-origin: 24px 27px; }
+    .pulse-dot, .pulse-plus, .glow-body { animation: none; }
+    .roadmap-header { cursor: default; }
+
+    .roadmap-header-text h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 0.15rem;
+    }
+
+    .roadmap-header-text h1 .accent-green { color: var(--accent-green); }
+    .roadmap-header-text h1 .accent-blue { color: var(--accent-blue); }
+
+    .roadmap-header-text .subtitle {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 400;
     }
 
     .roadmap-badge {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       background: var(--bg-card);
       border: 1px solid var(--border-color);
       border-radius: 100px;
-      padding: 6px 18px;
-      font-size: 0.8rem;
+      padding: 4px 14px;
+      font-size: 0.7rem;
       font-weight: 600;
       letter-spacing: 0.05em;
       text-transform: uppercase;
       color: var(--text-muted);
-      margin-bottom: 1.5rem;
+      margin-left: auto;
+      flex-shrink: 0;
     }
 
     .roadmap-badge .dot {
-      width: 6px;
-      height: 6px;
+      width: 5px;
+      height: 5px;
       background: var(--accent-green);
       border-radius: 50%;
       animation: pulse 2s ease infinite;
     }
 
-    .roadmap-header h1 {
-      font-size: clamp(2.2rem, 5vw, 3.2rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
-      margin-bottom: 0.5rem;
-    }
-
-    .roadmap-header h1 .accent-green { color: var(--accent-green); }
-    .roadmap-header h1 .accent-blue { color: var(--accent-blue); }
-
-    .roadmap-header .subtitle {
-      font-size: 1.1rem;
-      color: var(--text-muted);
-      font-weight: 400;
-    }
-
     /* ===== Timeline ===== */
     .timeline {
       position: relative;
-      max-width: 900px;
+      max-width: 100%;
       margin: 0 auto;
       padding: 0;
     }
@@ -74,7 +176,7 @@
       left: 50%;
       top: 0;
       bottom: 0;
-      width: 4px;
+      width: 3px;
       background: var(--border-color);
       transform: translateX(-50%);
       border-radius: 2px;
@@ -86,13 +188,13 @@
       left: 50%;
       top: 0;
       bottom: 0;
-      width: 2px;
+      width: 1px;
       background: repeating-linear-gradient(
         to bottom,
         var(--accent-green) 0px,
-        var(--accent-green) 10px,
-        transparent 10px,
-        transparent 22px
+        var(--accent-green) 8px,
+        transparent 8px,
+        transparent 18px
       );
       transform: translateX(-50%);
       opacity: 0.25;
@@ -101,9 +203,9 @@
     .bike-icon {
       position: absolute;
       left: 50%;
-      top: -32px;
+      top: -26px;
       transform: translateX(-50%);
-      font-size: 24px;
+      font-size: 20px;
       z-index: 3;
       animation: ride 3s ease-in-out infinite;
     }
@@ -113,25 +215,25 @@
       position: relative;
       display: flex;
       align-items: flex-start;
-      margin-bottom: 1.5rem;
+      margin-bottom: 0.75rem;
     }
 
     .milestone.left { flex-direction: row-reverse; }
     .milestone.right { flex-direction: row; }
 
     .milestone .card {
-      width: calc(50% - 36px);
+      width: calc(50% - 28px);
       background: var(--bg-card);
-      border-radius: 12px;
-      padding: 1.5rem;
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
       position: relative;
       border: 1px solid var(--border-color);
       transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
     }
 
     .milestone .card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
     }
 
     .milestone.left .card { margin-right: auto; }
@@ -141,28 +243,28 @@
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
-      width: 20px;
-      height: 20px;
+      width: 16px;
+      height: 16px;
       border-radius: 50%;
       z-index: 2;
       display: flex;
       align-items: center;
       justify-content: center;
-      top: 1.5rem;
+      top: 1rem;
     }
 
     .node .ring {
-      width: 20px;
-      height: 20px;
+      width: 16px;
+      height: 16px;
       border-radius: 50%;
-      border: 2.5px solid;
+      border: 2px solid;
       background: var(--bg-primary);
       position: relative;
     }
 
     .node .inner {
-      width: 8px;
-      height: 8px;
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
       position: absolute;
       top: 50%;
@@ -186,38 +288,100 @@
     .milestone[data-color="magenta"] .card:hover { border-color: rgba(170, 102, 255, 0.3); }
     .milestone[data-color="magenta"] .month { color: var(--accent-magenta); }
 
+    /* In-card title image — mobile only */
+    .card-title-img-mobile {
+      max-width: 100%;
+      height: auto;
+      max-height: 48px;
+      margin-bottom: 0.5rem;
+      border-radius: 4px;
+      display: none;
+    }
+
+    /* Artwork on opposite side of timeline from card */
+    .timeline-art {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: calc(50% - 36px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .milestone.left .timeline-art {
+      right: 0;
+    }
+
+    .milestone.right .timeline-art {
+      left: 0;
+    }
+
+    .milestone.left .timeline-art {
+      justify-content: flex-start;
+      padding-left: 1.5rem;
+    }
+
+    .milestone.right .timeline-art {
+      justify-content: flex-end;
+      padding-right: 1.5rem;
+    }
+
+    .timeline-art img {
+      max-width: 100%;
+      max-height: 140px;
+      object-fit: contain;
+      opacity: 0.85;
+      transition: opacity 0.3s ease;
+    }
+
+    .timeline-art img:hover {
+      opacity: 1;
+    }
+
+    .mystery-logo {
+      width: 120px;
+      height: 120px;
+      opacity: 0.85;
+      transition: opacity 0.3s ease;
+    }
+
+    .mystery-logo:hover {
+      opacity: 1;
+    }
+
     /* ===== Card Content ===== */
     .month {
-      font-size: 0.75rem;
+      font-size: 0.65rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      margin-bottom: 0.35rem;
+      margin-bottom: 0.15rem;
     }
 
     .event-name {
-      font-size: 1.15rem;
+      font-size: 0.95rem;
       font-weight: 700;
-      line-height: 1.25;
-      margin-bottom: 0.35rem;
+      line-height: 1.2;
+      margin-bottom: 0.2rem;
       color: var(--text-primary);
     }
 
     .event-desc {
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       color: var(--text-secondary);
-      line-height: 1.5;
+      line-height: 1.45;
     }
 
     .tag {
       display: inline-block;
-      padding: 3px 10px;
-      border-radius: 6px;
-      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 5px;
+      font-size: 0.6rem;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      margin-top: 0.75rem;
+      margin-top: 0.5rem;
     }
 
     .tag.live {
@@ -255,20 +419,35 @@
 
     /* ===== Mobile ===== */
     @media (max-width: 768px) {
-      .road { left: 20px; }
-      .node { left: 20px; top: 1.25rem; }
-      .bike-icon { left: 20px; }
+      .roadmap-header {
+        flex-wrap: wrap;
+      }
+      .roadmap-badge {
+        margin-left: 0;
+        order: -1;
+        width: 100%;
+      }
+      .road { left: 16px; }
+      .node { left: 16px; top: 0.85rem; }
+      .bike-icon { left: 16px; }
       .milestone,
       .milestone.left,
       .milestone.right { flex-direction: row; }
       .milestone .card,
       .milestone.left .card,
       .milestone.right .card {
-        width: calc(100% - 48px);
+        width: calc(100% - 40px);
         margin-left: auto;
         margin-right: 0;
       }
-      .event-name { font-size: 1.05rem; }
+      .roadmap-header {
+        position: relative;
+        top: auto;
+        backdrop-filter: none;
+      }
+      .event-name { font-size: 0.9rem; }
+      .timeline-art { display: none; }
+      .card-title-img-mobile { display: block; }
     }
   </style>
 </head>
@@ -296,31 +475,41 @@
   <main class="page-content">
     <div class="container">
 
-      <section class="fade-in">
-        <div class="roadmap-header">
-          <svg class="roadmap-logo" viewBox="0 0 220 52" xmlns="http://www.w3.org/2000/svg">
-            <g transform="translate(4,6)">
-              <rect x="2" y="10" width="36" height="22" rx="11" fill="none" stroke="var(--accent-green)" stroke-width="2.2"/>
-              <circle cx="13" cy="21" r="3" fill="var(--accent-green)"/>
-              <circle cx="27" cy="21" r="3" fill="var(--accent-blue)"/>
-              <rect x="17" y="8" width="6" height="6" rx="3" fill="var(--accent-magenta)"/>
+      <section>
+        <div class="roadmap-header fade-in">
+          <svg class="roadmap-logo" viewBox="-30 -4 108 60" xmlns="http://www.w3.org/2000/svg">
+            <!-- Left-side 220° arcs (purple) -->
+            <path class="wave-spin-l" d="M31.52,47.68 A22,22 0 1,1 31.52,6.32" fill="none" stroke="#a6f" stroke-width="2.5" stroke-dasharray="3 4" stroke-linecap="round" opacity="0.5"/>
+            <path class="wave-spin-l mid" d="M33.58,53.32 A28,28 0 1,1 33.58,0.68" fill="none" stroke="#a6f" stroke-width="2" stroke-dasharray="3 4" stroke-linecap="round" opacity="0.35"/>
+            <path class="wave-spin-l outer" d="M35.63,58.96 A34,34 0 1,1 35.63,-4.96" fill="none" stroke="#a6f" stroke-width="1.5" stroke-dasharray="3 4" stroke-linecap="round" opacity="0.2"/>
+
+            <!-- Right-side 220° arcs (blue) -->
+            <path class="wave-spin-r" d="M16.48,6.32 A22,22 0 1,1 16.48,47.68" fill="none" stroke="#4af" stroke-width="2.5" stroke-dasharray="3 4" stroke-linecap="round" opacity="0.5"/>
+            <path class="wave-spin-r mid" d="M14.42,0.68 A28,28 0 1,1 14.42,53.32" fill="none" stroke="#4af" stroke-width="2" stroke-dasharray="3 4" stroke-linecap="round" opacity="0.35"/>
+            <path class="wave-spin-r outer" d="M12.37,-4.96 A34,34 0 1,1 12.37,58.96" fill="none" stroke="#4af" stroke-width="1.5" stroke-dasharray="3 4" stroke-linecap="round" opacity="0.2"/>
+
+            <!-- Controller -->
+            <g class="glow-body" transform="translate(4,6)">
+              <rect x="2" y="10" width="36" height="22" rx="11" fill="#0d0d14"/>
+              <rect x="2" y="10" width="36" height="22" rx="11" fill="none" stroke="#44ff66" stroke-width="2.2"/>
+              <circle class="pulse-dot" cx="13" cy="21" r="3.5" fill="#a6f"/>
+              <g class="pulse-plus">
+                <rect x="25.75" y="17" width="2.5" height="8" rx="1.25" fill="#4af"/>
+                <rect x="23" y="19.75" width="8" height="2.5" rx="1.25" fill="#4af"/>
+              </g>
+              <rect x="15" y="9" width="10" height="6" rx="2.5" fill="#3adb58"/>
             </g>
-            <text x="48" y="22" font-family="'Inter', -apple-system, sans-serif" font-weight="700" font-size="15" fill="var(--text-primary)" letter-spacing="0.5">USERS FIRST</text>
-            <text x="48" y="40" font-family="'Inter', -apple-system, sans-serif" font-weight="500" font-size="13" fill="var(--text-muted)" letter-spacing="1">GAMES</text>
           </svg>
+          <div class="roadmap-header-text">
+            <h1><span class="accent-green">Tandemonium</span> <span class="accent-blue">Release Plan</span></h1>
+            <p class="subtitle">2026 Roadmap</p>
+          </div>
           <div class="roadmap-badge">
             <span class="dot"></span>
-            Users First Games
+            2026
           </div>
-          <h1>
-            <span class="accent-green">Tandemonium</span><br>
-            <span class="accent-blue">Release Plan</span>
-          </h1>
-          <p class="subtitle">2026 Roadmap</p>
         </div>
-      </section>
 
-      <section>
         <div class="timeline">
           <div class="road"></div>
           <div class="bike-icon">🚲</div>
@@ -359,13 +548,17 @@
           </div>
 
           <!-- JULY -->
-          <div class="milestone left fade-in" data-color="green">
+          <div class="milestone left fade-in has-art" data-color="green">
             <div class="node"><div class="ring"><div class="inner"></div></div></div>
             <div class="card">
+              <img class="card-title-img-mobile" src="../images/game/tandemonium_title.png" alt="Tandemonium">
               <div class="month">July</div>
               <div class="event-name">Full Game Release</div>
               <div class="event-desc">Tandemonium ships. Early Access or full launch — tandem bicycle chaos goes live for everyone.</div>
               <span class="tag launch">Launch</span>
+            </div>
+            <div class="timeline-art">
+              <img src="../images/game/tandemonium_title.png" alt="Tandemonium">
             </div>
           </div>
 
@@ -414,13 +607,29 @@
           </div>
 
           <!-- NOVEMBER -->
-          <div class="milestone right fade-in" data-color="green">
+          <div class="milestone right fade-in has-art" data-color="green">
             <div class="node"><div class="ring"><div class="inner"></div></div></div>
             <div class="card">
               <div class="month">November</div>
               <div class="event-name">Second Title Launch</div>
               <div class="event-desc">Users First Games ships title number two — built around unique inputs, gyro-native controls, and user experience at the core. The studio's vision fully realized.</div>
               <span class="tag launch">Launch</span>
+            </div>
+            <div class="timeline-art">
+              <svg class="mystery-logo" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                <!-- Outer glow ring -->
+                <circle cx="60" cy="60" r="50" fill="none" stroke="var(--accent-green)" stroke-width="2" stroke-dasharray="4 6" stroke-linecap="round" opacity="0.25"/>
+                <circle cx="60" cy="60" r="40" fill="none" stroke="var(--accent-green)" stroke-width="1.5" stroke-dasharray="3 5" stroke-linecap="round" opacity="0.15"/>
+                <!-- Background circle -->
+                <circle cx="60" cy="60" r="32" fill="var(--bg-card)" stroke="var(--border-color)" stroke-width="1.5"/>
+                <!-- Question mark -->
+                <text x="60" y="72" text-anchor="middle" font-family="'Inter', -apple-system, sans-serif" font-weight="800" font-size="42" fill="var(--accent-green)" opacity="0.8">?</text>
+                <!-- Small sparkles -->
+                <circle cx="30" cy="30" r="1.5" fill="var(--accent-magenta)" opacity="0.5"/>
+                <circle cx="90" cy="35" r="1" fill="var(--accent-blue)" opacity="0.4"/>
+                <circle cx="85" cy="85" r="1.5" fill="var(--accent-green)" opacity="0.3"/>
+                <circle cx="35" cy="88" r="1" fill="var(--accent-magenta)" opacity="0.4"/>
+              </svg>
             </div>
           </div>
 
@@ -449,5 +658,15 @@
   </footer>
 
   <script src="../js/main.js"></script>
+  <script>
+    // Auto-play intro animation for 10 seconds on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      const header = document.querySelector('.roadmap-header');
+      if (header) {
+        header.classList.add('intro');
+        setTimeout(() => header.classList.remove('intro'), 30000);
+      }
+    });
+  </script>
 </body>
 </html>
