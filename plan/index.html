@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Users First (Games) Plan 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --flame: #FF5C35;
+    --gold: #FFBF1A;
+    --teal: #00C9A7;
+    --purple: #7B61FF;
+    --sky: #38BDF8;
+    --pink: #FF6B9D;
+    --dark: #1A1A2E;
+    --darker: #12121F;
+    --road: #2A2A42;
+    --road-line: #FFBF1A;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--darker);
+    font-family: 'DM Sans', sans-serif;
+    color: #E8E8F0;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 48px 24px 64px;
+  }
+
+  /* HEADER */
+  .header {
+    text-align: center;
+    margin-bottom: 56px;
+    position: relative;
+  }
+
+  .studio-logo {
+    display: block;
+    margin: 0 auto 18px;
+    height: 48px;
+    animation: fadeDown 0.5s ease both;
+    filter: brightness(1.1);
+  }
+
+  .studio-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 100px;
+    padding: 6px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 20px;
+    animation: fadeDown 0.6s ease both;
+  }
+
+  .studio-badge .dot {
+    width: 6px; height: 6px;
+    background: var(--teal);
+    border-radius: 50%;
+    animation: pulse 2s ease infinite;
+  }
+
+  .title {
+    font-family: 'Lilita One', cursive;
+    font-size: clamp(42px, 7vw, 68px);
+    line-height: 1;
+    margin-bottom: 8px;
+    animation: fadeDown 0.6s 0.1s ease both;
+  }
+
+  .title .t1 { color: var(--flame); }
+  .title .t2 { color: var(--gold); }
+
+  .subtitle {
+    font-size: 17px;
+    color: rgba(255,255,255,0.45);
+    font-weight: 500;
+    animation: fadeDown 0.6s 0.2s ease both;
+  }
+
+  /* ROAD TIMELINE */
+  .timeline {
+    position: relative;
+    padding: 0;
+  }
+
+  .road {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+    background: var(--road);
+    transform: translateX(-50%);
+    border-radius: 3px;
+  }
+
+  .road::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: repeating-linear-gradient(
+      to bottom,
+      var(--road-line) 0px,
+      var(--road-line) 12px,
+      transparent 12px,
+      transparent 24px
+    );
+    transform: translateX(-50%);
+    opacity: 0.5;
+  }
+
+  /* MILESTONE NODES */
+  .milestone {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeIn 0.5s ease both;
+  }
+
+  .milestone:nth-child(1) { animation-delay: 0.3s; }
+  .milestone:nth-child(2) { animation-delay: 0.45s; }
+  .milestone:nth-child(3) { animation-delay: 0.6s; }
+  .milestone:nth-child(4) { animation-delay: 0.75s; }
+  .milestone:nth-child(5) { animation-delay: 0.9s; }
+  .milestone:nth-child(6) { animation-delay: 1.05s; }
+  .milestone:nth-child(7) { animation-delay: 1.2s; }
+  .milestone:nth-child(8) { animation-delay: 1.35s; }
+  .milestone:nth-child(9) { animation-delay: 1.5s; }
+
+  .milestone.left { flex-direction: row-reverse; }
+  .milestone.right { flex-direction: row; }
+
+  .milestone .card {
+    width: calc(50% - 40px);
+    background: var(--dark);
+    border-radius: 16px;
+    padding: 22px 24px;
+    position: relative;
+    border: 1px solid rgba(255,255,255,0.07);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .milestone .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+  }
+
+  .milestone.left .card { margin-right: auto; }
+  .milestone.right .card { margin-left: auto; }
+
+  /* NODE DOT */
+  .node {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 24px;
+  }
+
+  .node .ring {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    border: 3px solid;
+    background: var(--darker);
+    position: relative;
+  }
+
+  .node .inner {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+  }
+
+  /* COLOR THEMES */
+  .milestone[data-color="flame"] .ring { border-color: var(--flame); }
+  .milestone[data-color="flame"] .inner { background: var(--flame); }
+  .milestone[data-color="flame"] .card { border-color: rgba(255,92,53,0.2); }
+  .milestone[data-color="flame"] .card::before { background: linear-gradient(135deg, rgba(255,92,53,0.08), transparent); }
+  .milestone[data-color="flame"] .month { color: var(--flame); }
+
+  .milestone[data-color="gold"] .ring { border-color: var(--gold); }
+  .milestone[data-color="gold"] .inner { background: var(--gold); }
+  .milestone[data-color="gold"] .card { border-color: rgba(255,191,26,0.2); }
+  .milestone[data-color="gold"] .card::before { background: linear-gradient(135deg, rgba(255,191,26,0.08), transparent); }
+  .milestone[data-color="gold"] .month { color: var(--gold); }
+
+  .milestone[data-color="teal"] .ring { border-color: var(--teal); }
+  .milestone[data-color="teal"] .inner { background: var(--teal); }
+  .milestone[data-color="teal"] .card { border-color: rgba(0,201,167,0.2); }
+  .milestone[data-color="teal"] .card::before { background: linear-gradient(135deg, rgba(0,201,167,0.08), transparent); }
+  .milestone[data-color="teal"] .month { color: var(--teal); }
+
+  .milestone[data-color="purple"] .ring { border-color: var(--purple); }
+  .milestone[data-color="purple"] .inner { background: var(--purple); }
+  .milestone[data-color="purple"] .card { border-color: rgba(123,97,255,0.2); }
+  .milestone[data-color="purple"] .card::before { background: linear-gradient(135deg, rgba(123,97,255,0.08), transparent); }
+  .milestone[data-color="purple"] .month { color: var(--purple); }
+
+  .milestone[data-color="sky"] .ring { border-color: var(--sky); }
+  .milestone[data-color="sky"] .inner { background: var(--sky); }
+  .milestone[data-color="sky"] .card { border-color: rgba(56,189,248,0.2); }
+  .milestone[data-color="sky"] .card::before { background: linear-gradient(135deg, rgba(56,189,248,0.08), transparent); }
+  .milestone[data-color="sky"] .month { color: var(--sky); }
+
+  .milestone[data-color="pink"] .ring { border-color: var(--pink); }
+  .milestone[data-color="pink"] .inner { background: var(--pink); }
+  .milestone[data-color="pink"] .card { border-color: rgba(255,107,157,0.2); }
+  .milestone[data-color="pink"] .card::before { background: linear-gradient(135deg, rgba(255,107,157,0.08), transparent); }
+  .milestone[data-color="pink"] .month { color: var(--pink); }
+
+  .milestone[data-color="flame2"] .ring { border-color: #FF8C42; }
+  .milestone[data-color="flame2"] .inner { background: #FF8C42; }
+  .milestone[data-color="flame2"] .card { border-color: rgba(255,140,66,0.2); }
+  .milestone[data-color="flame2"] .card::before { background: linear-gradient(135deg, rgba(255,140,66,0.08), transparent); }
+  .milestone[data-color="flame2"] .month { color: #FF8C42; }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    pointer-events: none;
+  }
+
+  /* CARD CONTENT */
+  .month {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 6px;
+  }
+
+  .event-name {
+    font-family: 'Lilita One', cursive;
+    font-size: 22px;
+    line-height: 1.2;
+    margin-bottom: 6px;
+    color: #fff;
+  }
+
+  .event-desc {
+    font-size: 13px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.5;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 10px;
+  }
+
+  .tag.live {
+    background: rgba(0,201,167,0.15);
+    color: var(--teal);
+    animation: pulse 2s ease infinite;
+  }
+
+  .tag.major {
+    background: rgba(255,191,26,0.15);
+    color: var(--gold);
+  }
+
+  .tag.community {
+    background: rgba(123,97,255,0.15);
+    color: var(--purple);
+  }
+
+  .tag.launch {
+    background: rgba(255,92,53,0.15);
+    color: var(--flame);
+  }
+
+  /* BICYCLE ICON AT TOP */
+  .bike-icon {
+    position: absolute;
+    left: 50%;
+    top: -36px;
+    transform: translateX(-50%);
+    font-size: 28px;
+    z-index: 3;
+    animation: ride 3s ease-in-out infinite;
+  }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    margin-top: 48px;
+    opacity: 0;
+    animation: fadeIn 0.5s 1.5s ease both;
+  }
+
+  .footer-text {
+    font-size: 13px;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.5px;
+  }
+
+  .footer-brand {
+    font-family: 'Lilita One', cursive;
+    font-size: 16px;
+    color: rgba(255,255,255,0.15);
+    margin-top: 6px;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  @keyframes ride {
+    0%, 100% { transform: translateX(-50%) translateY(0) rotate(0deg); }
+    25% { transform: translateX(-50%) translateY(-3px) rotate(2deg); }
+    75% { transform: translateX(-50%) translateY(-3px) rotate(-2deg); }
+  }
+
+  /* MOBILE */
+  @media (max-width: 640px) {
+    .road { left: 24px; }
+    .node { left: 24px; top: 22px; }
+    .milestone, .milestone.left, .milestone.right { flex-direction: row; }
+    .milestone .card,
+    .milestone.left .card,
+    .milestone.right .card {
+      width: calc(100% - 56px);
+      margin-left: auto;
+      margin-right: 0;
+    }
+    .bike-icon { left: 24px; }
+    .event-name { font-size: 19px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <svg class="studio-logo" viewBox="0 0 220 52" xmlns="http://www.w3.org/2000/svg">
+      <!-- Controller/gamepad icon -->
+      <g transform="translate(4,6)">
+        <rect x="2" y="10" width="36" height="22" rx="11" fill="none" stroke="#00C9A7" stroke-width="2.2"/>
+        <circle cx="13" cy="21" r="3" fill="#00C9A7"/>
+        <circle cx="27" cy="21" r="3" fill="#FF5C35"/>
+        <rect x="17" y="8" width="6" height="6" rx="3" fill="#FFBF1A"/>
+      </g>
+      <!-- Text -->
+      <text x="48" y="22" font-family="'DM Sans',sans-serif" font-weight="700" font-size="15" fill="#FFFFFF" letter-spacing="0.5">USERS FIRST</text>
+      <text x="48" y="40" font-family="'DM Sans',sans-serif" font-weight="500" font-size="13" fill="rgba(255,255,255,0.5)" letter-spacing="1">GAMES</text>
+    </svg>
+    <div class="studio-badge">
+      <span class="dot"></span>
+      Users First Games
+    </div>
+    <div class="title">
+      <span class="t1">Tandemonium</span><br>
+      <span class="t2">Release Plan</span>
+    </div>
+    <div class="subtitle">2026 Roadmap</div>
+  </div>
+
+  <div class="timeline">
+    <div class="road"></div>
+    <div class="bike-icon">🚲</div>
+
+    <!-- MARCH 23 -->
+    <div class="milestone right" data-color="teal">
+      <div class="node"><div class="ring"><div class="inner"></div></div></div>
+      <div class="card">
+        <div class="month">March 23</div>
+        <div class="event-name">Steam Playtest Begins</div>
+        <div class="event-desc">Closed playtest goes live — batched invites, analytics tracking, and real player data starts flowing.</div>
+        <span class="tag live">● Live Now</span>
+      </div>
+    </div>
+
+    <!-- MAY 14 -->
+    <div class="milestone left" data-color="purple">
+      <div class="node"><div class="ring"><div class="inner"></div></div></div>
+      <div class="card">
+        <div class="month">May 14</div>
+        <div class="event-name">Studio Launch &amp; Open Source</div>
+        <div class="event-desc">Users First Games officially launches as an indie studio. Gyro-native gameplay, unique input experiences, and open source announcement — redefining how players connect with games.</div>
+        <span class="tag community">Studio Launch</span>
+      </div>
+    </div>
+
+    <!-- JUNE 15 -->
+    <div class="milestone right" data-color="sky">
+      <div class="node"><div class="ring"><div class="inner"></div></div></div>
+      <div class="card">
+        <div class="month">June 15</div>
+        <div class="event-name">Steam Next Fest</div>
+        <div class="event-desc">Major visibility window. Demo live on the Steam storefront — maximum wishlists and conversion push.</div>
+        <span class="tag major">Milestone</span>
+      </div>
+    </div>
+
+    <!-- JULY -->
+    <div class="milestone left" data-color="flame">
+      <div class="node"><div class="ring"><div class="inner"></div></div></div>
+      <div class="card">
+        <div class="month">July</div>
+        <div class="event-name">Full Game Release</div>
+        <div class="event-desc">Tandemonium ships. Early Access or full launch — tandem bicycle chaos goes live for everyone.</div>
+        <span class="tag launch">🚀 Launch</span>
+      </div>
+    </div>
+
+    <!-- AUGUST -->
+    <div class="milestone right" data-color="pink">
+      <div class="node"><div class="ring"><div class="inner"></div></div></div>
+      <div class="card">
+        <div class="month">August</div>
+        <div class="event-name">Next Game Announcement &amp; Playtest</div>
+        <div class="event-desc">Users First Games reveals what's next. Second title announced and playtest begins — studio momentum in full swing.</div>
+        <span class="tag community">Community</span>
+      </div>
+    </div>
+
+    <!-- SEPTEMBER -->
+    <div class="milestone left" data-color="gold">
+      <div class="node"><div class="ring"><div class="inner"></div></div></div>
+      <div class="card">
+        <div class="month">September</div>
+        <div class="event-name">Demo Release</div>
+        <div class="event-desc">Public demo drops for the next title. Players get their first hands-on ahead of Next Fest and GDEX.</div>
+        <span class="tag major">Milestone</span>
+      </div>
+    </div>
+
+    <!-- OCTOBER 15 -->
+    <div class="milestone right" data-color="flame2">
+      <div class="node"><div class="ring"><div class="inner"></div></div></div>
+      <div class="card">
+        <div class="month">October 15</div>
+        <div class="event-name">GDEX</div>
+        <div class="event-desc">Hands-on gyro &amp; touchpad demos at GDEX Columbus. Showcasing the tech behind unique input experiences — where games and hardware innovation meet.</div>
+        <span class="tag community">Tech &amp; Games</span>
+      </div>
+    </div>
+
+    <!-- OCTOBER 19 -->
+    <div class="milestone left" data-color="sky">
+      <div class="node"><div class="ring"><div class="inner"></div></div></div>
+      <div class="card">
+        <div class="month">October 19</div>
+        <div class="event-name">Steam Next Fest</div>
+        <div class="event-desc">Second Next Fest appearance. Demo live on the storefront with GDEX momentum — maximum visibility for the next title.</div>
+        <span class="tag major">Milestone</span>
+      </div>
+    </div>
+
+    <!-- NOVEMBER -->
+    <div class="milestone right" data-color="flame">
+      <div class="node"><div class="ring"><div class="inner"></div></div></div>
+      <div class="card">
+        <div class="month">November</div>
+        <div class="event-name">Second Title Launch</div>
+        <div class="event-desc">Users First Games ships title number two — built around unique inputs, gyro-native controls, and user experience at the core. The studio's vision fully realized.</div>
+        <span class="tag launch">🚀 Launch</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <div class="footer-text">tandemonium.usersfirst.com</div>
+    <div class="footer-brand">Users First Games · Columbus, OH</div>
+  </div>
+</div>
+
+</body>
+</html>
