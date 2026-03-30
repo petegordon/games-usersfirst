@@ -428,12 +428,16 @@
     /* ===== Mobile ===== */
     @media (max-width: 768px) {
       .roadmap-header {
-        flex-wrap: wrap;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .roadmap-header-text {
+        position: static;
+        transform: none;
       }
       .roadmap-badge {
         margin-left: 0;
-        order: -1;
-        width: 100%;
       }
       .road { left: 16px; }
       .node { left: 16px; top: 0.85rem; }
